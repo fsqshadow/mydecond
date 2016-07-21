@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/fuwo/admin/admin.css" />
+    <script>
+    window.g_config = {
+      disableRightPop: true //是否禁用右边栏
+    };
+    </script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- 导航 -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/html/yunying/index.html">后台管理</a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> 个人资料</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!--左侧菜单-->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="javascript:void(0)">M站<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/index.html">首页cms</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/photocms.html">效果图首页</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">TMS发布<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="/html/yunying/tms/home.html">首页内容发布</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/discuss.html">装修论坛顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/strategy.html">装修攻略顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/effectPhoto.html">效果图</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row" id="strategy">
+            
+        </div>
+    </div>
+
+</div>
+</body>
+<script data-main="/static/srcjs/ifuwo/pages/yunying/tms/strategy" src="/static/srcjs/require.js"></script>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="/static/master/css/plugins/gldatepicker.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/common/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/admin/admin.css" />
+    <script>
+        window.g_config = {
+            disableRightPop: true, //是否禁用右边栏
+            staticHost: "test.fuwo.com",
+            serviceHost: "master.fuwo.com"
+        };
+    </script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- 导航 -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/html/yunying/index.html">后台管理</a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!--左侧菜单-->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="javascript:void(0)">M站<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/index.html" class="active">首页cms</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/photocms.html">效果图首页</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"> TMS发布<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/tms/home.html">首页内容发布</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/discuss.html">装修论坛顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/strategy.html">装修攻略顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/effectPhoto.html">效果图</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/hot_search_keyword.html">文章热门搜索</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">文章管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="index.html">文章列表</a>
+                            </li>
+                            <li>
+                                <a href="add.html">添加文章</a>
+                            </li>
+                            <li>
+                                <a href="hot.html" class="active">设置热门文章</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">XX列表</h2>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                上传文件
+            </div>
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <label for="" class="control-label text-right">选择分类:</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" name="checkbox1" id="type_1" value="value1"> 名字1
+                    </label>
+                    <label class="radio-inline">
+                        <input type="checkbox" name="checkbox1" id="type_2" value="value2"> 名字2
+                    </label>
+                    <label class="radio-inline">
+                        <input type="checkbox" name="checkbox1" id="type_3" value="value3"> 名字3
+                    </label>
+                </div>
+                <!--这里是上传文件的表单-->
+                <form id="js-upfile-form" action="/yunying/community/api/topictitle/import/">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label text-right">选择文件:</label>
+                        <div class="col-lg-6">
+                            <!--文件-->
+                            <input id="js-tfile" name="tfile" type="file">
+                            <!--第1个分类-->
+                            <input id="js-checkbox-1-val" name="checkbox1" type="hidden" value="0"/>
+                            <!--第2个分类-->
+                            <input id="js-checkbox-2-val" name="checkbox2" type="hidden" value="0"/>
+                            <!--第3个分类-->
+                            <input id="js-checkbox-3-val" name="checkbox3" type="hidden" value="0"/>
+                        </div>
+                        <div class="col-lg-2">
+                            <input id="js-upfile-submit" class="btn btn-outline btn-success" type="button" value="上传" />
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <!--这里是搜索的表单-->
+                <form id="js-search-form" class="form-inline" action="/xx/xx">
+                    <div class="col-md-4 text-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="search_text_default" placeholder="">
+                            <!--搜索文本框-->
+                            <input id="search_text" name="keyword" type="hidden"/>
+                        </div>
+                        <input id="js_search_submit" type="button" class="btn btn-default" value="搜索">
+                    </div>
+                </form>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>页面title</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-id="1">
+                    <td>1</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td><span class="btn btn-xs btn-outline btn-warning js-del">删除</span></td>
+                </tr>
+                <tr data-id="2">
+                    <td>2</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td><span class="btn btn-xs btn-outline btn-warning js-del">删除</span></td>
+                </tr>
+                <tr data-id="3">
+                    <td>3</td>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                    <td><span class="btn btn-xs btn-outline btn-warning js-del">删除</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+<script data-main="/static/master/js/searchtag/searchtag_list" src="/static/master/js/lib/require.js"></script>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="/static/master/js/lib/dataTables/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/js/lib/dataTables/dataTables.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/common/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/admin/admin.css" />
+
+    <script>
+    window.g_config = {   //对象(object)     变量：string array object
+      disableRightPop: true, //是否禁用右边栏
+      staticHost: "test.fuwo.com",
+      serviceHost: "master.fuwo.com",
+      isChangeAccount: true
+    };
+	//定义全局变量
+    var permission = 20;   //
+	//g_config.disableRightPop => true
+	//g_config.staticHost => 'test.fuwo.com' 
+    </script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- 导航 -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/html/yunying/index.html">后台管理</a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!--左侧菜单-->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="javascript:void(0)">M站<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/index.html" class="active">首页cms</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/photocms.html">效果图首页</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"> TMS发布<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/tms/home.html">首页内容发布</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/discuss.html">装修论坛顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/strategy.html">装修攻略顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/effectPhoto.html">效果图</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/hot_search_keyword.html">文章热门搜索</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">文章管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="index.html" class="active">文章列表</a>
+                            </li>
+                            <li>
+                                <a href="add.html">添加文章</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 margin-top-20">
+                <h2 class="page-header">列表管理</h2>
+            </div>
+            <div class="js-photo">
+                <div class="table-top">
+                    <div class="table-input"><select id="select_type"><option value="title">标题</option><option value="tag">标签</option></select><input type="text" id="search_table"> <span class="btn btn-small btn-success f12" id="search_btn">搜素</span></div>
+                    <span class="btn btn-small btn-success f12" id="list_type">分类</span>
+                    <span class="btn btn-small btn-success f12" id="list_refresh">刷新</span>
+                    <span class="btn btn-small btn-success f12" id="del_type">删除文章所有分类</span>
+                </div>
+                <table id="data_table" class="article-list">
+                    <col width="40px">
+                    <col width="60px">
+                    <col width="">
+                    <col width="">
+                    <col width="">
+                    <col width="">
+                    <col width="">
+                    <col width="121px">
+                    <col width="">
+                    <col width="160px">
+                    <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th class="js-sort cursor" data-sort="id">ID<i class="share-sort_desc"></i></th>
+                            <th>标题</th>
+                            <th>封面</th>
+                            <th class="js-sort cursor" data-sort="create_time">创建时间<i class="share-sort_both"></i></th>
+                            <th>
+                                <select id="table_recommend">
+                                    <option value="">全部</option>
+                                    <option value="1">精选</option>
+                                    <option value="0">未精选</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select id="table_author">
+                                    <option>作者</option>
+                                    <option>清风</option>
+                                    <option>张东</option>
+                                </select>
+                            </th>
+                            <th>
+                                <label id="select_tag_name" class="select-tag-name" data-tag="">公积金公积金 <span class="share-sort_desc"></span></label>
+                                <div id="select_tag" class="select-tag">
+                                    
+                                </div>
+                            </th>
+                            <th>
+                                <select id="table_source">
+                                    <option>来源</option>
+                                    <option>清风</option>
+                                    <option>张东</option>
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center">
+                            <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div>
+                        </td>
+                        <td>1023237</td>
+                        <td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td>
+                        <td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td>
+                        <td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td>
+                        <td>系统用户</td>
+                        <td>设计、功能和风格 <a class="del_type" href="javascript:;">删除</a></td>
+                        <td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td>
+                        <td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023237" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td>
+                    </tr>
+                    <tr><td class="text-center"><div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div></td><td>1023237</td><td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td><td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td><td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td><td>系统用户</td><td></td><td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td><td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023238" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td></tr>
+                    <tr><td class="text-center"><div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div></td><td>1023237</td><td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td><td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td><td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td><td>系统用户</td><td></td><td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td><td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023239" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td></tr>
+                    <tr><td class="text-center"><div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div></td><td>1023237</td><td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td><td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td><td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td><td>系统用户</td><td></td><td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td><td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023240" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td></tr>
+                    </tbody>
+                    
+
+                </table>
+                <div id="paginator" class="text-center float-left per-width-100"></div>
+            </div>
+            
+        </div>
+    </div>
+
+
+<!-- /sidebar侧边栏账号切换 -->
+    
+</div>
+</body>
+<script data-main="/static/master/js/article/article" src="/static/master/js/lib/require.js"></script>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="/static/master/js/lib/dataTables/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/js/lib/dataTables/dataTables.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/common/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/admin/admin.css" />
+
+    <script>
+    window.g_config = {
+      disableRightPop: true, //是否禁用右边栏
+      staticHost: "test.fuwo.com",
+      serviceHost: "master.fuwo.com",
+      isChangeAccount: true
+    };
+    var permission = 20;
+    </script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- 导航 -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/html/yunying/index.html">后台管理</a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!--左侧菜单-->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="javascript:void(0)">M站<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/index.html" class="active">首页cms</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/photocms.html">效果图首页</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"> TMS发布<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/tms/home.html">首页内容发布</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/discuss.html">装修论坛顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/strategy.html">装修攻略顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/effectPhoto.html">效果图</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/hot_search_keyword.html">文章热门搜索</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">文章管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="index.html" class="active">文章列表</a>
+                            </li>
+                            <li>
+                                <a href="add.html">添加文章</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 margin-top-20">
+                <h2 class="page-header">列表管理</h2>
+            </div>
+            <div class="js-photo">
+                <div class="table-top">
+                    <div class="table-input"><select id="select_type"><option value="title">标题</option><option value="tag">标签</option></select><input type="text" id="search_table"> <span class="btn btn-small btn-success f12" id="search_btn">搜素</span></div>
+                    <span class="btn btn-small btn-success f12" id="list_type">分类</span>
+                    <span class="btn btn-small btn-success f12" id="list_refresh">刷新</span>
+                    <span class="btn btn-small btn-success f12" id="del_type">删除文章所有分类</span>
+                </div>
+                <table id="data_table" class="article-list">
+                    <col width="40px">
+                    <col width="60px">
+                    <col width="">
+                    <col width="">
+                    <col width="">
+                    <col width="">
+                    <col width="">
+                    <col width="121px">
+                    <col width="">
+                    <col width="160px">
+                    <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th class="js-sort cursor" data-sort="id">ID<i class="share-sort_desc"></i></th>
+                            <th>标题</th>
+                            <th>封面</th>
+                            <th class="js-sort cursor" data-sort="create_time">创建时间<i class="share-sort_both"></i></th>
+                            <th>
+                                <select id="table_recommend">
+                                    <option value="">全部</option>
+                                    <option value="1">精选</option>
+                                    <option value="0">未精选</option>
+                                </select>
+                            </th>
+                            <th>
+                                <select id="table_author">
+                                    <option>作者</option>
+                                    <option>清风</option>
+                                    <option>张东</option>
+                                </select>
+                            </th>
+                            <th>
+                                <label id="select_tag_name" class="select-tag-name" data-tag="">公积金公积金 <span class="share-sort_desc"></span></label>
+                                <div id="select_tag" class="select-tag">
+                                    
+                                </div>
+                            </th>
+                            <th>
+                                <select id="table_source">
+                                    <option>来源</option>
+                                    <option>清风</option>
+                                    <option>张东</option>
+                                </select>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center">
+                            <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div>
+                        </td>
+                        <td>1023237</td>
+                        <td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td>
+                        <td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td>
+                        <td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td>
+                        <td>系统用户</td>
+                        <td>设计、功能和风格 <a class="del_type" href="javascript:;">删除</a></td>
+                        <td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td>
+                        <td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023237" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td>
+                    </tr>
+                    <tr><td class="text-center"><div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div></td><td>1023237</td><td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td><td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td><td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td><td>系统用户</td><td></td><td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td><td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023238" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td></tr>
+                    <tr><td class="text-center"><div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div></td><td>1023237</td><td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td><td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td><td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td><td>系统用户</td><td></td><td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td><td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023239" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td></tr>
+                    <tr><td class="text-center"><div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" data-id="1023237" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; cursor: pointer; background: rgb(255, 255, 255);"></ins></div></td><td>1023237</td><td><a href="http://www.fuwo.com/article/1023237.html" target="_blank">威盛机箱怎么样？威盛机箱价格介绍</a></td><td><img src="http://static.fuwo.com/upload/attachment/1605/05/a61c071e129b11e68caa00163e00254c.jpg.180x120.cut.jpg"></td><td>2016-05-05 16:30:41</td><td><a href="javascript:void(0)" class="js-recommend blue" data-recommend="1" data-id="1023237">加精</a></td><td>系统用户</td><td></td><td><a href="http://m.to8to.com/yezhu/v50821.html" target="_blank">土巴兔文章(v)</a></td><td><a class="btn btn-small btn-success f12" href="/yunying/zxzs/article/edit/?id=1023240" target="_blank">编辑</a><a class="btn btn-small btn-warning f12 js-del-customer" href="javascript:void(0)" data-id="1023237">删除</a></td></tr>
+                    </tbody>
+                    
+
+                </table>
+                <div id="paginator" class="text-center float-left per-width-100"></div>
+            </div>
+            
+        </div>
+    </div>
+
+
+<!-- /sidebar侧边栏账号切换 -->
+    
+</div>
+</body>
+<script data-main="/static/master/js/article/article" src="/static/master/js/lib/require.js"></script>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="/static/master/css/plugins/gldatepicker.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/common/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/master/css/admin/admin.css" />
+    <script>
+    window.g_config = {
+      disableRightPop: true, //是否禁用右边栏
+      staticHost: "test.fuwo.com",
+      serviceHost: "master.fuwo.com"
+    };
+    </script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- 导航 -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/html/yunying/index.html">后台管理</a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!--左侧菜单-->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="javascript:void(0)">M站<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/index.html" class="active">首页cms</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/photocms.html">效果图首页</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"> TMS发布<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/html/yunying/tms/home.html">首页内容发布</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/discuss.html">装修论坛顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/strategy.html">装修攻略顶部</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/effectPhoto.html">效果图</a>
+                            </li>
+                            <li>
+                                <a href="/html/yunying/tms/hot_search_keyword.html">文章热门搜索</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">文章管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="index.html" class="active">文章列表</a>
+                            </li>
+                            <li>
+                                <a href="add.html">添加文章</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">添加文章</h2>
+            </div>
+            <div class="edit-list" id="edit_list">
+                
+                <dl>
+                    <dt>标题：</dt>
+                    <dd><input type="text" class="edit-title"></dd>
+                </dl>
+                <dl>
+                    <dt>文章摘要：</dt>
+                    <dd><textarea></textarea></dd>
+                </dl>
+                <dl>
+                    <dt>文章正文：</dt>
+                    <dd id="container"></dd>
+                    <input type="hidden" id="attachment">
+                </dl>
+`````
+            </div>
+
+            <!--帖子分配福币后的显示-->
+            <div id="topic-assign-fubi">
+                <div class="margin-top-10" style="background: #eee;padding: 5px 10px;">奖励福币：<span class="color-orange">50</span>，奖励理由： <span style="color: #999;">哈哈，我高兴。</span></div>
+            </div>
+            <!--评论分配福币后的显示-->
+            <ul>
+                <li class="comment-list-wrap-li">
+                    <span class="btn btn-small btn-primary J-Pop-Assign-Fcoin" data-model="comment" data-id="2" data-user-id = "22">分配福币</span>
+                    <div class="comment-assign-fubi">
+                        <div class="margin-top-10" style="background: #eee;padding: 5px 10px;">奖励福币：<span class="color-orange">50</span>，奖励理由： <span style="color: #999;">哈哈，我高兴。</span></div>
+                    </div>
+                </li>
+            </ul>
+            <div class="col-lg-12 text-center">
+                <span class="btn btn-large btn-success js-save">保存</span>
+                <span class="btn btn-small btn-primary J-Pop-Assign-Fcoin" data-model="topic" data-id="1" data-user-id = "11">分配福币</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script data-main="/static/master/js/article/add" src="/static/master/js/lib/require.js"></script>
+</html>
